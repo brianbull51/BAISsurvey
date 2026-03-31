@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Movie Survey"
+version = "1.0.0"
+id = "artifacts/movie-survey"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19286
+
+[services.development]
+run = "pnpm --filter @workspace/movie-survey run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/movie-survey", "run", "build" ]
+publicDir = "artifacts/movie-survey/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19286"
+BASE_PATH = "/"
